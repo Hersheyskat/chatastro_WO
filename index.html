@@ -13,9 +13,18 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Disable page scrollbar */
+        }
+
+        .chat-container {
+            height: 100%;
+            overflow-y: auto; /* Only this will scroll */
+        }
+
         #chatMessages {
-            max-height: 900px;
-            overflow-y: hidden;
+
             scroll-behavior: smooth; 
         }
 
@@ -967,10 +976,18 @@
 
         
 
+const chatContainer = document.querySelector(".chat-container");
+
+function scrollToBottom() {
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+
 //  OTP removed
 function showBirthForm() {
     const chatMessages = document.getElementById('chatMessages');
     
+    // chatMessages.scrollTop = chatMessages.scrollHeight;
     chatMessages.innerHTML = '';
     
     const formScreen = document.createElement('div');
@@ -2073,7 +2090,8 @@ Let me start with your general cosmic overview...`;
                 </div>
             `;
             chatMessages.appendChild(chartDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
+
             
             setTimeout(() => {
                 addBotMessage("🎊 Your cosmic reading is complete! Feel free to ask me any specific questions about your life using the chat below.", false, false, false);
@@ -2110,7 +2128,8 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
         `;
 
         chatMessages.appendChild(typingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        scrollToBottom();
+
 
         // Replace with actual message after delay
         setTimeout(() => {
@@ -2134,7 +2153,8 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             </div>
         `;
         chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        scrollToBottom();
+
 
         const streamingElement = document.getElementById(uniqueId);
         streamTextContent(streamingElement, text, () => {
@@ -2154,7 +2174,7 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
                 `;
                 messageDiv.querySelector('.message-content').innerHTML += suggestionsHtml;
                 setTimeout(() => {
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    scrollToBottom();
                 }, 100);
             }
         });
@@ -2180,10 +2200,10 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
 
         messageDiv.innerHTML = messageContent;
         chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        scrollToBottom();
 
         setTimeout(() => {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
         }, 50);
     }
 }
@@ -2210,13 +2230,13 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
                     element.textContent = text.substring(0, index + 1) + '|';
                     index++;
                     
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    scrollToBottom();
                     
                     setTimeout(typeChar, speed + Math.random() * 20);
                 } else {
                     element.textContent = text;
                     setTimeout(() => {
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        scrollToBottom();
                     }, 100);
                     if (onComplete) onComplete();
                 }
@@ -2231,10 +2251,10 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             messageDiv.className = 'message user';
             messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
             chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
             
             setTimeout(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                scrollToBottom();
             }, 50);
         }
 
@@ -2248,7 +2268,7 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             input.value = '';
 
             
-            if (!isPremium && questionCount >= 9) {
+            if (!isPremium && questionCount >= 0) {
                 setTimeout(() => {
                     addBotMessage("🔒 You’ve reached your free limit. Please choose a plan to continue your astrological journey.");
                     showPaymentPlans();
@@ -2284,7 +2304,7 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
                     questionCount++; 
 
                     
-                    if (!isPremium && questionCount === 10) {
+                    if (!isPremium && questionCount === 1) {
                         currentStep = 'readingComplete';
                         setTimeout(() => {
                             addBotMessage("🔮 Your free reading is complete! Choose a plan to ask more questions.");
@@ -2322,7 +2342,7 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             
             topActions.innerHTML = actionsHTML;
             
-            const chatContainer = document.getElementById('chatContainer');
+            // const chatContainer = document.getElementById('chatContainer');
             chatContainer.appendChild(topActions);
         }
 
@@ -2355,10 +2375,10 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
                 </div>
             `;
             chatMessages.appendChild(paymentDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
             
             setTimeout(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                scrollToBottom();
             }, 100);
         }
 
@@ -2597,7 +2617,8 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             `;
             
             chatMessages.appendChild(successDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
+
             
             setTimeout(() => {
                 addBotMessage("🎉 Congratulations! You now have premium access. Ask me any specific questions about your life - I'm here to help guide your cosmic journey!", true, false, true);
@@ -2630,10 +2651,11 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
                 </div>
             `;
             chatMessages.appendChild(reportDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            scrollToBottom();
+
             
             setTimeout(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                scrollToBottom();
             }, 100);
         }
 
