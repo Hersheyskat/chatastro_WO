@@ -2094,7 +2094,7 @@ Let me start with your general cosmic overview...`;
 
             
             setTimeout(() => {
-                addBotMessage("🎊 Your cosmic reading is complete! Feel free to ask me any specific questions about your life using the chat below.", false, false, false);
+                addBotMessage("🎊 Feel free to ask me any specific questions about your life using the chat below.", false, false, false);
                 currentStep = 'readingComplete';
                 updatePlaceholderForStep('readingComplete');
                 document.getElementById('inputSuggestions').style.display = 'flex';
@@ -2337,7 +2337,7 @@ function addBotMessage(text, showSuggestions = false, isTyping = false, streamTe
             
             if (isPremium) {
                 const remainingQuestions = Math.max(0, userDetails.totalQuestions - questionCount);
-                actionsHTML += `<button class="action-btn question-counter">${remainingQuestions} Questions Left</button>`;
+                actionsHTML += `<button class="action-btn question-counter">${remainingQuestions} Questions plan</button>`;
             }
             
             topActions.innerHTML = actionsHTML;
