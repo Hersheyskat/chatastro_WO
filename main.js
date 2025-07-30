@@ -22,7 +22,7 @@ async function startPayment(planType, userId, userDetails) {
     ...result.order,
     handler: async function (response) {
       // Verify payment
-      await fetch('/api/verify-payment', {
+      await fetch('/api/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(response)
@@ -35,7 +35,7 @@ async function startPayment(planType, userId, userDetails) {
     modal: {
       ondismiss: async function () {
         // Optional: Handle user closing Razorpay popup
-        await fetch('/api/payment-failed', {
+        await fetch('/api/failure', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
